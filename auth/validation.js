@@ -1,8 +1,4 @@
-export function validateRegister(req, res) {
-  const {
-    body: { email, password, name },
-  } = req;
-
+export function validateRegister({ email, password, name }, res) {
   const errors = [];
 
   if (email == null) {
