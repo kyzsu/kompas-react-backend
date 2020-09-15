@@ -9,7 +9,7 @@ export default (req, res) => {
 
   validateRegister(data, res);
 
-  if (register(data, res)) {
+  if (register(data)) {
     res.statusCode = 200;
     res.json(data);
   } else {

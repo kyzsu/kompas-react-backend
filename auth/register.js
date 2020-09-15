@@ -1,15 +1,17 @@
 const fs = require('fs');
 
-export default function register(user, res) {
+export default function register(user) {
   const path = './db/users.json';
 
-  return fs.readFile(path, (err, data) => {
+  fs.readFile(path, (err, data) => {
     if (err) {
       console.log(err);
       return false;
     } else {
       const userTable = JSON.parse(data);
-      userTable.data.push(user);
+      const lastId = userTable.data.length;
+
+      userTable.data.push({ id: lastId + 1, ...user });
 
       fs.writeFile(path, JSON.stringify(userTable), err => {
         if (err) {
@@ -19,4 +21,6 @@ export default function register(user, res) {
       });
     }
   });
+
+  return true;
 }
