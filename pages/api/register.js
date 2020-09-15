@@ -9,12 +9,5 @@ export default (req, res) => {
 
   validateRegister(data, res);
 
-  if (register(data)) {
-    res.statusCode = 200;
-    res.json(data);
-  } else {
-    res.statusCode = 500;
-    res.json({ message: 'Failed to register user' });
-  }
-
+  register(data, res);
 };
