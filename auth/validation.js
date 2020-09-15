@@ -1,13 +1,16 @@
 export function validateRegister({ email, password, name }, res) {
   const errors = [];
 
-  if (email == null) {
+  if (email == null || email == '') {
     errors.push('Email must not be empty');
   }
-  if (password == null) {
+  if (password == null || password == '') {
     errors.push('Password must not be empty');
   }
-  if (name == null) {
+  if (password.length < 8) {
+    errors.push("The password has to be equals or longer than 8 digits!");
+  }
+  if (name == null || name == '') {
     errors.push('Name must not be empty');
   }
 
