@@ -29,8 +29,10 @@ export default function register(user, res) {
             res.json({ message: 'Failed to register user', errors: ['Please contact admin'] });
           }
 
+          delete user.password;
+
           res.statusCode = 200;
-          res.json({ message: 'Successfully registered user', data: user });
+          res.json({ message: 'Successfully registered user', data: { id: lastId + 1, ...user } });
         });
       }
     }
