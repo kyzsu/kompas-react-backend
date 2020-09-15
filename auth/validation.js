@@ -15,7 +15,6 @@ export function validateRegister({ email, password, name }, res) {
   }
 
   if (errors.length > 0) {
-    res.statusCode = 400;
-    res.json({ message: "There's something wrong with your input", errors });
+    res({ message: "There's something wrong with your input", errors, code: 400 });
   }
 }

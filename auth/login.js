@@ -6,8 +6,7 @@ export default function authenticate(user, res) {
   fs.readFile(path, (err, data) => {
     if (err) {
       console.log(err);
-      res.statusCode = 500;
-      res.json({ message: 'Failed to authenticate user', errors: ['Please contact admin'] });
+      res({ message: 'Failed to authenticate user', errors: ['Please contact admin'], code: 500 });
     } else {
       const userTable = JSON.parse(data);
       const checkUser = userTable.data.find(
@@ -15,14 +14,16 @@ export default function authenticate(user, res) {
       );
 
       if (checkUser) {
-        res.statusCode = 200;
-        res.json({
+        res({
           message: 'Successfully login',
           data: { id: checkUser.id, email: user.email, name: checkUser.name },
         });
       } else {
-        res.statusCode = 400;
-        res.json({ message: 'Email or password is wrong' });
+        res({
+          message: 'Please check your inputs',
+          errors: ['Email or password is wrong'],
+          code: 400,
+        });
       }
     }
   });

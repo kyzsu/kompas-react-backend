@@ -6,5 +6,12 @@ export default (req, res) => {
   } = req;
   const data = { email, password, name };
 
-  authenticate(data, res);
+  authenticate(data, ({ message, errors, data, code = 200 }) => {
+    res.statusCode = code;
+    if(code != 200) {
+      res.json({ message, errors });
+    } else {
+      res.json({ message, data });
+    }
+  });
 };

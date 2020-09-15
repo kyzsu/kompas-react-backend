@@ -6,8 +6,24 @@ export default (req, res) => {
     body: { email, password, name },
   } = req;
   const data = { email, password, name };
+  let fail = false;
 
-  validateRegister(data, res);
+  validateRegister(data, ({ message, errors, code = 200 }) => {
+    res.statusCode = code;
+    if (code != 200) {
+      res.json({ message, errors });
+      fail = true;
+    }
+  });
 
-  register(data, res);
+  if (!fail) {
+    register(data, ({ message, errors, data, code = 200 }) => {
+      res.statusCode = code;
+      if (code != 200) {
+        res.json({ message, errors });
+      } else {
+        res.json({ message, data });
+      }
+    });
+  }
 };
